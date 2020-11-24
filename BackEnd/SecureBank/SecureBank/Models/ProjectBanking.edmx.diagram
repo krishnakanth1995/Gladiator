@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1b4a7e9f9d524286b455c40938929153" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="ProjectBankingModel.AccountDetail" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectBankingModel.Admin" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectBankingModel.BeneficiaryDetail" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectBankingModel.Customer" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectBankingModel.OccupationDetail" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectBankingModel.PermanentAddress" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectBankingModel.ResidentialAddress" Width="1.5" PointX="3" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectBankingModel.StatusTracking" Width="1.5" PointX="6" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectBankingModel.sysdiagram" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectBankingModel.TransactionDetail" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="ProjectBankingModel.FK__AccountDeta__CID__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectBankingModel.FK__Beneficia__Accou__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectBankingModel.FK__Transacti__Recie__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectBankingModel.FK__Transacti__Sende__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectBankingModel.FK__StatusTra__Admin__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectBankingModel.FK__OccupationD__CID__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectBankingModel.FK__PermanentAd__CID__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectBankingModel.FK__Residential__CID__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="ProjectBankingModel.FK__StatusTrack__CID__5070F446" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

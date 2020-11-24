@@ -1,0 +1,759 @@
+customerdetails.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import {AccountOpeningService} from 'src/app/services/accountopeningservice';
+import {  NgForm } from '@angular/forms';
+import {Registration} from 'src/models/registration.model';
+
+
+@Component({
+  selector: 'app-customerdetails',
+  templateUrl: './customerdetails.component.html',
+  styleUrls: ['./customerdetails.component.css']
+})
+export class CustomerdetailsComponent implements OnInit {
+  newuser:Registration;
+  result:any=[];
+
+  constructor(private accountopeningservice:AccountOpeningService) {
+    this.newuser={
+      CID:null,
+      
+    FirstName:"",
+    MiddleName:"",
+    LastName:"",
+    FatherName:"",
+    MobileNumber:"",
+    EmailID:"",
+    AadharNumber:null,
+    //DOB: new Date, 
+    PAddressLine1:"",
+    PAddressLine2:"",
+    PLandmark:"",
+    PState:"",
+    PCity:"",
+    PPincode:"",
+    RAddressLine1:"",
+    RAddressLine2:"",
+    RLandmark:"",
+    RState:"",
+    RCity:"",
+    RPincode:"",
+    Occupationtype:"",
+    SourceofIncome:"",
+    GrossannualIncome:null,
+    NetBankingOpted:false,
+    DebitCardOpted:false,
+    /*MailingAddress:false, */
+
+    }
+   }
+
+  onSubmit(userform:NgForm)
+   {
+       console.log(userform.value)
+       this.accountopeningservice.registeruser(this.newuser).subscribe((data)=>{this.result=data;})
+       alert ('Successfully Submitted!!!');
+   }
+
+  ngOnInit(): void {
+  }
+  
+  /* addnewaccount()
+  {
+    this.accountopeningservice.registeruser(this.newuser).subscribe((data)=>{this.result=data;})
+  } */
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+customerdetails.comp.html
+
+
+
+<div class="container">
+    <div style = "text-align : center">
+    
+    <h2>Open A Savings Account</h2>
+    
+    </div>
+    <h2>Personal Details</h2>
+    <div>
+        
+        <form #userform="ngForm" (ngSubmit)="onSubmit(userform)" novalidate>
+           <p>
+                <label for="FirstName" >First Name*</label>
+                <input required type="text"  name="FirstName"  [(ngModel)]=newuser.FirstName #FirstName="ngModel">
+               
+            </p>
+            <div *ngIf="!FirstName?.valid && (FirstName?.dirty || FirstName?.touched)" class="error">
+                    <div *ngIf="FirstName.errors.required">
+                        <small class="text-danger">First Name  is Required</small>
+                    </div>
+                </div>
+            <p>
+                        <label for="MiddleName">Middle Name</label>
+                        <input type="text"  name="MiddleName"  [(ngModel)]=newuser.MiddleName #MiddleName="ngModel" >
+                       
+            </p>        
+    
+                    <p>
+                        <label for="LastName">Last Name*</label>
+                        <input required type="text"  name="LastName"  [(ngModel)]=newuser.LastName #LastName="ngModel" >
+                       
+                    </p>
+                    <div *ngIf="!LastName?.valid && (LastName?.dirty || LastName?.touched)" class="error">
+                            <div *ngIf="LastName.errors.required">
+                                <small class="text-danger">Last Name  is Required</small>
+                            </div>
+                        </div>
+    
+                            <p>
+                                <label for="FatherName">Father's Name*</label>
+                                <input required type="text"  name="FatherName"  [(ngModel)]=newuser.FatherName #FatherName="ngModel" >
+                               
+                            </p>
+                            <div *ngIf="!FatherName?.valid && (FatherName?.dirty || FatherName?.touched)" class="error">
+                                    <div *ngIf="FatherName.errors.required">
+                                        <small class="text-danger">Father Name  is Required</small>
+                                    </div>
+                                </div>
+                                    <p>
+                                        <label for="MobileNumber">Mobile Number*</label>
+                                        <input required type="text" id = "MobileNumber" name="MobileNumber"  [(ngModel)]=newuser.MobileNumber #MobileNumber="ngModel" >
+                                       
+                                    </p>
+                                    <div *ngIf="!MobileNumber?.valid && (MobileNumber?.dirty || MobileNumber?.touched)" class="error">
+                                            <div *ngIf="MobileNumber.errors.required">
+                                                <small class="text-danger">Mobile Number  is Required</small>
+                                            </div>
+                                        </div>
+                                            <p>
+                                                <label for="EmailID">Email ID</label>
+                                                <input type="text"  name="EmailID"  [(ngModel)]=newuser.EmailID #EmailID="ngModel" required email>
+                                               
+                                            </p>
+                                            <div *ngIf="!EmailID?.valid && (EmailID?.dirty || EmailID?.touched)" class="error">
+                                                <!-- <div *ngIf="EmailId.errors.required">
+                                                    <small class="text-danger">Mail id is Required</small>
+                                                </div> -->
+                                                <div *ngIf="EmailID.errors.email">
+                                                    <small class="text-danger">invalid email address</small>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                <label for="AadharNumber">Aadhar Card Number*</label>
+                                                <input required type="text" id = "AadharNumber" name="AadharNumber"  [(ngModel)]=newuser.AadharNumber  #AadharNumber="ngModel"  >
+                                               
+                                            </p>
+                                            <div *ngIf="!AadharNumber?.valid && (AadharNumber?.dirty || AadharNumber?.touched)" class="error">
+                                                    <div *ngIf="AadharNumber.errors.required">
+                                                        <small class="text-danger">Aadhar Number  is Required</small>
+                                                    </div>
+                                                    <!-- <div *ngIf="AadharNumber.errors.pattern">
+                                                        <small class="text-danger">  Adhar Number should be in pattern:0000-0000-0000</small>
+                                                         </div> -->
+                                                </div>
+    <h4>
+        Residential Address
+    </h4>
+    <p>
+        <label for="PAddressLine1">a)Address Line 1*</label>
+        <input required type="text"  name="PAddressLine1"  [(ngModel)]=newuser.PAddressLine1 #PAddressLine1="ngModel" >
+       
+    </p>
+    <div *ngIf="!PAddressLine1?.valid && (PAddressLine1?.dirty || PAddressLine1?.touched)" class="error">
+            <div *ngIf="PAddressLine1.errors.required">
+                <small class="text-danger">Address Line 1 is Required</small>
+            </div>
+        </div>
+            <p>
+                <label for="PAddressLine2">b)Address Line 2*</label>
+                <input required type="text"  name="PAddressLine2"  [(ngModel)]=newuser.PAddressLine2 #PAddressLine2="ngModel" >
+               
+            </p>
+            <div *ngIf="!PAddressLine2?.valid && (PAddressLine2?.dirty || PAddressLine2?.touched)" class="error">
+                    <div *ngIf="PAddressLine2.errors.required">
+                        <small class="text-danger">Address Line 2 is Required</small>
+                    </div>
+                </div>
+    
+                    <p>
+                        <label for="PLandmark">c)Landmark</label>
+                        <input type="text"  name="PLandmark"  [(ngModel)]=newuser.PLandmark #PLandmark="ngModel" >
+                       
+                    </p>
+                    <p>
+                        <label for="PState">d)State*</label>
+                        <input required type="text"  name="PState"  [(ngModel)]=newuser.PState #PState="ngModel" >
+                       
+                    </p>
+                    <div *ngIf="!PState?.valid && (PState?.dirty || PState?.touched)" class="error">
+                            <div *ngIf="PState.errors.required">
+                                <small class="text-danger">State is Required</small>
+                            </div>
+                        </div>
+                            <p>
+                                <label for="PCity">e)City*</label>
+                                <input required type="text"  name="PCity"  [(ngModel)]=newuser.PCity #PCity="ngModel" >
+                               
+                            </p>
+                            <div *ngIf="!PCity?.valid && (PCity?.dirty || PCity?.touched)" class="error">
+                                    <div *ngIf="PCity.errors.required">
+                                        <small class="text-danger">City is Required</small>
+                                    </div>
+                                </div>
+                                    <p>
+                                        <label for="PPincode">f)Pincode*</label>
+                                        <input required type="text" id="PPincode" name="PPincode"  [(ngModel)]=newuser.PPincode #PPincode="ngModel" >
+                                       
+                                    </p>
+                                    <div *ngIf="!PPincode?.valid && (PPincode?.dirty || PPincode?.touched)" class="error">
+                                            <div *ngIf="PPincode.errors.required">
+                                                <small class="text-danger">Pincode is Required</small>
+                                            </div>
+                                        </div>
+    <h4>
+        Permanent Address
+    </h4>
+    <!-- <p>
+        <label for="MailingAddress">Permanent Address Same as Mailing Address</label>
+       <input type="checkbox" name="MailingAddress" id="MailingAddress" [(ngModel)]=newuser.MailingAddress>
+       
+    </p> -->
+    <p>
+        <label for="RAddressLine1">a)Address Line 1*</label>
+        <input required type="text"  name="RAddressLine1"  [(ngModel)]=newuser.RAddressLine1 #RAddressLine1="ngModel" >
+       
+    </p>
+    <div *ngIf="!RAddressLine1?.valid && (RAddressLine1?.dirty || RAddressLine1?.touched)" class="error">
+            <div *ngIf="RAddressLine1.errors.required">
+                <small class="text-danger">Address Line 1 is Required</small>
+            </div>
+        </div>
+            <p>
+                <label for="RAddressLine2">b)Address Line 2*</label>
+                <input required type="text"  name="RAddressLine2"  [(ngModel)]=newuser.RAddressLine2 #RAddressLine2="ngModel" >
+               
+            </p>
+            <div *ngIf="!RAddressLine2?.valid && (RAddressLine2?.dirty || RAddressLine2?.touched)" class="error">
+                    <div *ngIf="RAddressLine2.errors.required">
+                        <small class="text-danger">Address Line 2 is Required</small>
+                    </div>
+                </div>
+    
+                    <p>
+                        <label for="RLandmark">c)Landmark</label>
+                        <input type="text"  name="RLandmark"  [(ngModel)]=newuser.RLandmark #RLandmark="ngModel" >
+                       
+                    </p>
+                    <p>
+                        <label for="RState">d)State*</label>
+                        <input required type="text"  name="RState"  [(ngModel)]=newuser.RState #RState="ngModel" >
+                       
+                    </p>
+                    <div *ngIf="!RState?.valid && (RState?.dirty || RState?.touched)" class="error">
+                            <div *ngIf="RState.errors.required">
+                                <small class="text-danger">State is Required</small>
+                            </div>
+                        </div>
+                            <p>
+                                <label for="RCity">e)City*</label>
+                                <input required type="text"  name="RCity"  [(ngModel)]=newuser.RCity #RCity="ngModel" >
+                               
+                            </p>
+                            <div *ngIf="!RCity?.valid && (RCity?.dirty || RCity?.touched)" class="error">
+                                    <div *ngIf="RCity.errors.required">
+                                        <small class="text-danger">City is Required</small>
+                                    </div>
+                                </div>
+                                    <p>
+                                        <label for="RPincode">f)Pincode*</label>
+                                        <input required type="text" id="RPincode" name="RPincode"  [(ngModel)]=newuser.RPincode #RPincode="ngModel" >
+                                       
+                                    </p>
+                                    <div *ngIf="!RPincode?.valid && (RPincode?.dirty || RPincode?.touched)" class="error">
+                                            <div *ngIf="RPincode.errors.required">
+                                                <small class="text-danger">Pincode is Required</small>
+                                            </div>
+                                        </div>
+    <h4> Occupation Details</h4>
+    
+    <p>
+        <label for="Occupationtype">a)Occupation Type*</label>
+        <input required type="text"  name="Occupationtype"  [(ngModel)]=newuser.Occupationtype #Occupationtype="ngModel" >
+       
+    </p>
+    <div *ngIf="!Occupationtype?.valid && (Occupationtype?.dirty || Occupationtype?.touched)" class="error">
+            <div *ngIf="Occupationtype.errors.required">
+                <small class="text-danger">Occupation Type is Required</small>
+            </div>
+        </div>
+    
+        <!-- <p>
+            <label for="Occupationtype">a)Occupation Type*</label>
+            <select name="Occupationtype" id="Occupationtype">
+             <option selected>Choose</option>
+             <option *ngFor="let o of Occupationtype">{{o}}</option>
+            </select>
+        </p> -->
+    
+    <p>
+        <label for="SourceofIncome">b)Source of Income*</label>
+        <input required type="text"  name="SourceofIncome"  [(ngModel)]=newuser.SourceofIncome #SourceofIncome="ngModel" >
+       
+    </p>
+    <div *ngIf="!SourceofIncome?.valid && (SourceofIncome?.dirty || SourceofIncome?.touched)" class="error">
+            <div *ngIf="SourceofIncome.errors.required">
+                <small class="text-danger">Source of Income is Required</small>
+            </div>
+        </div>
+    
+            <p>
+                <label for="GrossannualIncome">c)Gross Annual Income*</label>
+                <input required type="text"  name="GrossannualIncome"  [(ngModel)]=newuser.GrossannualIncome #GrossannualIncome="ngModel" >
+               
+            </p>
+            <div *ngIf="!GrossannualIncome?.valid && (GrossannualIncome?.dirty || GrossannualIncome?.touched)" class="error">
+                    <div *ngIf="GrossannualIncome.errors.required">
+                        <small class="text-danger">Gross Annual Income is Required</small>
+                    </div>
+                </div>
+    
+    <p>Debit/ATM Card</p>
+    
+    <p>    Do you want a debit card?</p>
+
+    <p>
+        <label for="DebitCardOpted">Opt for Debit Card</label>
+       <input type="checkbox" name="DebitCardOpted" id="DebitCardOpted" [(ngModel)]=newuser.DebitCardOpted>
+       
+    </p>
+    
+   <p>
+        <label for="NetBankingOpted">Opt for Net Banking</label>
+       <input type="checkbox" name="NetBankingOpted" id="NetBankingOpted" [(ngModel)]=newuser.NetBankingOpted>
+       
+    </p>
+    
+            <p>
+                <button class="btn btn-primary" type="submit" [disabled]="userform.invalid"> Submit</button>
+            </p>
+     
+            {{userform.valid}}
+        </form>
+    </div>
+</div>
+
+---------------------------------------------------------------------------------------------------------------------------
+customerdetails.css
+
+* {box-sizing: border-box}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit/register button */
+.btn btn-primary {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+
+ ------------------------------------------------------------------------------------------------------------------------------
+
+accountopeningservice.ts     from services
+
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import{Injectable} from '@angular/core';
+import {Registration} from 'src/models/registration.model';
+
+@Injectable({providedIn:"root"})
+/* export class AccountOpeningService
+{
+    constructor(private http:HttpClient)
+    {
+        
+    }
+
+     public postopenaccount(registration)
+    {
+        return this.http.post("https://localhost:44373/api/AccountOpening/OpeningAccount",registration);
+
+    }
+
+
+}*/
+
+export class AccountOpeningService {
+  registerUser(value: any) {
+    throw new Error('Method not implemented.');
+  }
+    /* httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    } */
+    baseUrl:string = "https://localhost:44373/api/AccountOpening/OpeningAccount";
+  
+    constructor(private http : HttpClient) { }
+
+    /* registerUser(data){
+        const registration = {
+          "FirstName": data.FirstName,
+            "MiddleName": data.MiddleName,
+            "LastName": data.LastName,
+            //"Gender": data.gender,
+            "EmailID": data.EmailID,
+            "MobileNumber": data.MobileNumber,
+            "FatherName": data.FatherName,
+            "DOB": data.DOB,
+            "Occupationype": data.Occupationype,
+            "SourceofIncome": data.SourceofIncome,
+            "GrossannualIncome": data.GrossannualIncome,
+            //"DebitCardOpted":( data.debitCard) ? "yes" : "no",
+        //"NetBankingOpted": (data.netbanking) ? "yes" : "no",
+        //"DateOfApplication": new Date()
+        "PAddressLine1":data.PAddressLine1,
+        "PAddressLine2":data.PAddressLine2,
+        "PLandmark":data.PLandmark,
+        "PState":data.PState,
+        "PCity":data.PCity,
+        "PPincode":data.PPincode,
+        "RAddressLine1":data.RAddressLine1,
+        "RAddressLine2":data.RAddressLine2,
+        "RLandmark":data.RLandmark,
+        "RState":data.RState,
+        "RCity":data.RCity,
+        "RPincode":data.RPincode
+
+        }
+        console.log(registration)
+    return this._http.post<Registration>(this.baseUrl,JSON.stringify(registration),this.httpOptions)
+  } */
+
+  registeruser(newuser)
+  {
+    return this.http.post(this.baseUrl,newuser)
+  }
+}
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+registration.model.ts            in models folder
+
+export class Registration {
+    CID:number;
+    /* title: string; */
+	FirstName: string;
+	MiddleName: string;
+	LastName: string;
+	/* Gender: string; */
+	EmailID: string;
+	MobileNumber: string;
+    FatherName: string;
+    AadharNumber:number;
+	DOB?: Date;
+	Occupationtype: string;
+	SourceofIncome: string;
+	GrossannualIncome: number;
+	 DebitCardOpted: boolean; 
+	 NetBankingOpted: boolean; 
+    /* DateOfApplication: Date; */
+    RAddressLine1: string;
+    RAddressLine2: string;
+    RLandmark: string;
+    RState: string;
+    RCity: string;
+    RPincode: string;
+    PAddressLine1: string;
+    PAddressLine2: string;
+    PLandmark: string;
+    PState: string;
+    PCity: string;
+    PPincode: string;
+}  
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+index.html
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Savings</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+app.compo.html
+
+<app-customerdetails></app-customerdetails>
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+webapi part
+
+
+webapiconfig.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Cors;
+
+
+namespace prjOnlineBanking
+{
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
+            // Web API configuration and services
+            //to send data back in json
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+            // config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            //Enable Cors
+            config.EnableCors(new EnableCorsAttribute("http://localhost:4200", headers: "*", methods: "*"));
+
+            // Web API routes
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+AccountOpening.cs       create a calss file in model
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace prjOnlineBanking.Models
+{
+    public class AccountOpening
+    {
+        
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+
+        public string LastName { get; set; }
+        public string FatherName { get; set; }
+        public string MobileNumber { get; set; }
+
+        public string EmailId { get; set; }
+        public long AadharNumber { get; set; }
+        public DateTime DOB { get; set; }
+        public string PAddressLine1 { get; set; }
+        public string PAddressLine2 { get; set; }
+        public string PLandmark { get; set; }
+        public string PState { get; set; }
+        public string PCity { get; set; }
+        public string PPincode { get; set; }
+        public string RAddressLine1 { get; set; }
+        public string RAddressLine2 { get; set; }
+        public string RLandmark { get; set; }
+        public string RState { get; set; }
+        public string RCity { get; set; }
+        public string RPincode { get; set; }
+
+
+        //public Addressdetails Permenantaddress { get; set; }
+        //public Addressdetails Residentialaddress { get; set; }
+        public string Occupationtype { get; set; }
+        public string SourceofIncome { get; set; }
+
+        public float GrossannualIncome { get; set; }
+        //public int PID { get; set; }
+        //public Nullable<int> CID { get; set; }
+        
+
+
+
+    }
+    //public class Addressdetails
+    //{
+    //    public string AddressLine1 { get; set; }
+    //    public string AddressLine2 { get; set; }
+    //    public string Landmark { get; set; }
+    //    public string State { get; set; }
+    //    public string City { get; set; }
+    //    public string Pincode { get; set; }
+
+    //}
+    
+        
+
+    
+}
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+AccountOpeningController.cs                       create an empty controller with webapi
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using prjOnlineBanking.Models;
+
+namespace prjOnlineBanking.Controllers
+{
+    public class AccountOpeningController : ApiController
+    {
+        OnlineBankingEntities db = new OnlineBankingEntities();
+
+        [HttpPost]
+        public dynamic Openingaccount(AccountOpening accountopening)
+        {
+            Customer aobj = new Customer();
+            List<AccountOpening> acc = new List<AccountOpening>();
+            aobj.FirstName = accountopening.FirstName;
+            aobj.LastName = accountopening.LastName;
+            aobj.MiddleName = accountopening.MiddleName;
+            aobj.FatherName = accountopening.FatherName;
+            aobj.MobileNumber = accountopening.MobileNumber;
+            aobj.EmailID = accountopening.EmailId;
+            aobj.Aadharnumber = accountopening.AadharNumber;
+            aobj.DOB = accountopening.DOB;
+            db.Customers.Add(aobj);
+            db.SaveChanges();
+            var cus = (from c in db.Customers
+                      where c.Aadharnumber == accountopening.AadharNumber
+                      select c.CID).FirstOrDefault();
+            int id=0;
+            if(cus!=null)
+            {
+                 id = cus;
+
+
+            }
+
+            OccupationDetail occ = new OccupationDetail();
+            occ.CID = id;
+            occ.Occupationtype = accountopening.Occupationtype;
+            occ.SourceofIncome = accountopening.SourceofIncome;
+            occ.GrossannualIncome = accountopening.GrossannualIncome;
+            db.OccupationDetails.Add(occ);
+
+            db.SaveChanges();
+
+            ResidentialAddress res = new ResidentialAddress();
+            res.CID = id;
+            res.RAddressLine1 = accountopening.RAddressLine1;
+            res.RAddressLine2 = accountopening.RAddressLine2;
+            res.RLandmark = accountopening.RLandmark;
+            res.RPincode = accountopening.RPincode;
+            res.RState = accountopening.RState;
+            res.RCity = accountopening.RCity;
+            db.ResidentialAddresses.Add(res);
+            db.SaveChanges();
+
+            PermanentAddress perm = new PermanentAddress();
+            perm.CID = id;
+            perm.PAddressLine1 = accountopening.PAddressLine1;
+
+            perm.PAddressLine2 = accountopening.PAddressLine2;
+            perm.PLandmark = accountopening.PLandmark;
+            perm.PPincode = accountopening.PPincode;
+            perm.PState = accountopening.PState;
+            perm.PCity = accountopening.PCity;
+            db.PermanentAddresses.Add(perm);
+            db.SaveChanges();
+            //var id1 = from p in db.PermanentAddresses
+
+
+
+
+            
+
+
+           
+
+        
+            //var accountregistration = db.sp_Accountopening(accountopening.FirstName, accountopening.MiddleName, accountopening.LastName
+            //    , accountopening.FatherName, accountopening.MobileNumber, accountopening.EmailID, accountopening.AadharNumber,
+            //    accountopening.DOB, accountopening.PAddressLine1, accountopening.PAddressLine2,
+            //    accountopening.PLandmark, accountopening.PState, accountopening.PCity,
+            //    accountopening.PPincode, accountopening.RAddressLine1, accountopening.RAddressLine2,
+            //    accountopening.RLandmark, accountopening.RState, accountopening.RCity,
+            //    accountopening.RPincode, accountopening.Occupationtype, accountopening.SourceofIncome, accountopening.GrossannualIncome);
+            return Request.CreateResponse(HttpStatusCode.OK, "valid data");
+
+        }
+    }
+}
+
+     
